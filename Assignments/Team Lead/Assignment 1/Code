@@ -1,15 +1,41 @@
-#Build a python code,Assume u get Temperature and Humidity values
-#(Generated with random function) and write a condition to countinuosly
-#detect alarm in case of high temperature
+// C++ code
+//
+#include<Servo.h>
+Servo servo;
+int pr=A5,pir=2,led=12,trig=3,echo=4;
+void setup()
+{
+  pinMode(pir,INPUT);
+  pinMode(pr,INPUT);
+  pinMode(led,OUTPUT);
+  pinMode(trig,OUTPUT);
+  pinMode(echo,INPUT);
+  Serial.begin(9600);
+  servo.attach(9);
+}
 
-
-from random import*     #import random value generator package
-temp=randint(1,100);    #Random Value generator
-hum=randint(1,100);     
-print("Temperature is",temp,"\nHumidity is",hum);
-if temp>=70 and hum>60:
-        print("Hazadous area..Leave the place");
-elif temp>=70:
-    print("Temperature high");
-else:
-    print("Everything is Fine");
+void loop()
+{
+  int m=digitalRead(pir);
+  int l=analogRead(pr);
+  Serial.println(l);
+  if(m==1)
+  {
+    if(l<100)
+    {
+      digitalWrite(led,HIGH); }
+    else {
+      digitalWrite(led,LOW); }
+  }
+  digitalWrite(trig,0);
+  digitalWrite(trig,1);
+  delayMicroseconds(10);
+  digitalWrite(trig,0);
+  float dur=pulseIn(echo,HIGH);
+  float dis=(dur*0.0343)/2;
+  if(dis<50)
+  {
+    servo.write(90); }
+  else{
+    servo.write(0); }
+}
