@@ -1,1 +1,12 @@
+import random
+t = random.randint(1,100)
+h = random.randint(1,100)
+print("the temperature of an your land is ",t)
+print("the Humidity of an your soil is ",h)
+if t>70:
+    print("Temperature is HIGH")
+elif t>70 or h>65:
+    print("Hazadous area")
+else:
+    print("safe area")    
 
